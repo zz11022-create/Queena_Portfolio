@@ -1,0 +1,26 @@
+/* Fixed device coordinates. Only the entire mockup scales with the browser.
+   Screen: 1206 × 2622 / 3 = 402 × 874 logical pixels.
+   Body: approximately 71.9 : 150 mm (iPhone 18 Pro). */
+html,body{width:100%;height:100%;margin:0;background:#fff;background-image:none;overflow:hidden}
+.device-stage{width:100%;height:100dvh;display:grid;place-items:center;background:#fff;overflow:hidden}
+.device-slot{position:relative;flex:none;width:434px;height:906px}
+.device{position:absolute;inset:0 auto auto 0;display:block;width:434px;height:906px;min-height:0;padding:16px;border:0;border-radius:78px;background:#080808;overflow:visible;transform-origin:top left;box-shadow:inset 0 0 0 1px #9b9b98,inset 0 0 0 3px #565653,inset 0 0 0 5px #222220,0 0 0 1px #aaa9a6,0 1px 3px #00000026}
+.device-screen{position:relative;display:flex;flex-direction:column;width:402px;height:874px;border-radius:62px;overflow:hidden;background:var(--paper);isolation:isolate}
+.side-key{position:absolute;width:4px;background:linear-gradient(90deg,#777773,#292927);z-index:-1}
+.action-key{left:-4px;top:157px;height:30px;border-radius:2px 0 0 2px}
+.volume-up{left:-4px;top:218px;height:59px;border-radius:2px 0 0 2px}
+.volume-down{left:-4px;top:294px;height:59px;border-radius:2px 0 0 2px}
+.power-key{right:-4px;top:250px;height:94px;border-radius:0 2px 2px 0;background:linear-gradient(90deg,#292927,#777773)}
+.camera-key{right:-3px;top:595px;height:43px;width:3px;border-radius:0 2px 2px 0;background:#494947}
+.statusbar{position:relative;display:flex;justify-content:space-between;align-items:flex-start;height:62px;flex:0 0 62px;padding:20px 29px 0 35px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-size:15px;background:var(--paper);color:#111}
+.statusbar b{font-weight:600;letter-spacing:.1px;line-height:20px}
+.island{position:absolute;left:50%;top:14px;transform:translateX(-50%);width:94px;height:32px;border-radius:22px;background:#000}
+.status-icons{display:flex;align-items:center;gap:5px;height:20px}
+.status-icons svg{width:17px;height:13px;fill:currentColor;display:block}
+.status-icons svg.battery{width:27px;height:14px}
+#app{position:relative;display:flex;flex-direction:column;flex:1;min-height:0}
+.screen{padding:0 22px 24px;overscroll-behavior:contain;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.home-indicator{height:25px;flex:0 0 25px;background:var(--paper)}
+.home-indicator:after{top:13px;left:calc(50% - 67px);width:134px;height:5px;background:#111;border-radius:5px}
+#toast{position:absolute;bottom:35px;max-width:calc(100% - 32px);width:max-content;text-align:center}

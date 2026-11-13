@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Emotional Gut · Queena Zheng</title>
+  <link rel="icon" type="image/png" href="assets/queena-q-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a class="logo" href="index.html" aria-label="Queena Zheng home"><img src="assets/queena-wordmark.png" alt="" width="137" height="38"></a>
+  <nav aria-label="Main navigation">
+    <a href="index.html#work">Work</a>
+    <a href="about.html">About</a>
+    <a href="assets/queena-zheng-resume.pdf">Resume</a>
+    <button type="button" class="note-button" id="open-guestbook" aria-label="Open guestbook" title="Guestbook"><span class="chat-icon" aria-hidden="true"></span></button>
+  </nav>
+</header>
+<main class="reading" id="main">
+  <header class="detail-head">
+    <a class="case-back" href="index.html#work">← Work</a>
+    <p class="meta">Installation · Speculative wearable</p>
+    <h1>Emotional Gut</h1>
+    <p class="summary">A sculptural wearable that explores how the emotional strain of a working day could become visible on the body.</p>
+    <a class="project-action" href="#documentation">See the wearable documentation <span aria-hidden="true">↓</span></a>
+  </header>
+  <figure class="case-image"><img src="assets/work/emotional-gut.jpg" alt="Emotional Gut project visual"></figure>
+  <section class="case-section"><h2>From social pressure to form</h2><p>The project uses the gut–brain relationship as inspiration for a bodily form. Light provides an external expression of something that is usually felt internally.</p></section>
+  <section class="case-section"><h2>Making and wearing</h2><p>The boards show the construction, electronics, and how the piece sits on the body. The wearable is a speculative design study.</p></section>
+  <section class="case-section project-documentation" id="documentation"><h2>Project documentation</h2><figure><a href="assets/work/emotional-gut-process-1.jpg"><img src="assets/work/emotional-gut-process-1.jpg" alt="Concept and early development." loading="lazy"></a><figcaption>Concept and early development.</figcaption></figure>
+<figure><a href="assets/work/emotional-gut-process-2.jpg"><img src="assets/work/emotional-gut-process-2.jpg" alt="Fabrication and the wearable on the body." loading="lazy"></a><figcaption>Fabrication and the wearable on the body.</figcaption></figure></section>
+</main>
+<footer class="footer wrap"><p>Queena Zheng</p><a href="mailto:zz11022@nyu.edu">Get in touch ↗</a></footer>
+<dialog id="guestbook" aria-labelledby="guestbook-title">
+  <div class="dialog-head">
+    <h2 id="guestbook-title">Guestbook</h2>
+    <button id="close-guestbook" type="button" class="close" aria-label="Close guestbook">×</button>
+  </div>
+  <form class="note-form" id="note-form">
+    <label for="guest-note">Leave a note</label>
+    <textarea id="guest-note" rows="4" maxlength="300" required></textarea>
+    <button type="submit">Save note</button>
+    <p class="dialog-detail">Preview. Notes are saved on this device.</p>
+    <p id="note-status" class="status" role="status"></p>
+  </form>
+</dialog>
+</body>
+</html>

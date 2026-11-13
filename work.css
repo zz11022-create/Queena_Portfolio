@@ -1,0 +1,65 @@
+.gallery { margin-top: 38px; }
+.gallery h2 { text-align: center; font-size: 25px; letter-spacing: -.03em; }
+.filters { justify-content: center; margin-bottom: 24px; }
+.projects { align-items: start; }
+.project .cover { border-radius: 7px; }
+@media (min-width: 701px) {
+  .projects:has(.project:nth-child(5):not([hidden])) .project:first-child .cover,
+  .projects:has(.project:nth-child(5):not([hidden])) .project:nth-child(3) .cover { aspect-ratio: 1.18; }
+  .project:nth-child(4) .cover { aspect-ratio: 1.67; }
+}
+@media (max-width: 700px) {
+  .gallery { margin-top: 30px; }
+}
+
+@media (min-width: 701px) {
+  .projects {
+    grid-auto-rows: 4px;
+    row-gap: 0;
+  }
+}
+
+.project .cover-phone {
+  position: relative;
+  background: #f3eff9;
+}
+.cover-phone img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  padding: 12px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.cover-motion, .cover-interactive { position: relative; }
+.cover-video, .cover-interactive iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.cover-video {
+  object-fit: contain;
+  opacity: 0;
+}
+.cover-motion[data-playing] .cover-video { opacity: 1; }
+.cover-motion[data-playing] { background: #f3eff9; }
+.cover-motion[data-playing] > :not(video) { visibility: hidden; }
+.cover-interactive iframe { border: 0; background: #f5f1fa; }
+.preview-button {
+  position: absolute;
+  z-index: 1;
+  bottom: 10px;
+  left: 10px;
+  padding: 7px 11px;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.preview-button:hover { background: #f0effb; }

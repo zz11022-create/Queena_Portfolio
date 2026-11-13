@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Play something silly. Discover something real. Coach Sloth's creative club, inside an interactive iPhone mockup.">
+  <title>Procrastination Olympics — Coach Sloth's Club</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="device.css">
+  <link rel="stylesheet" href="illustrated.css">
+</head>
+<body>
+  <div class="device-stage">
+    <section class="device-slot" aria-label="Interactive iPhone 18 Pro mockup">
+      <div class="device">
+        <div class="side-key action-key" aria-hidden="true"></div>
+        <div class="side-key volume-up" aria-hidden="true"></div>
+        <div class="side-key volume-down" aria-hidden="true"></div>
+        <div class="side-key power-key" aria-hidden="true"></div>
+        <div class="side-key camera-key" aria-hidden="true"></div>
+        <div class="device-screen">
+          <div class="statusbar" aria-hidden="true">
+            <b>9:41</b>
+            <span class="island"></span>
+            <div class="status-icons">
+              <svg viewBox="0 0 20 14"><path d="M1 9h3v4H1zM6 6h3v7H6zM11 3h3v10h-3zM16 0h3v13h-3z"/></svg>
+              <svg viewBox="0 0 18 14"><path d="M1.5 4.2Q9-2 16.5 4.2M4.2 7.2Q9 3.3 13.8 7.2M6.9 10.2Q9 8.6 11.1 10.2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="9" cy="12.5" r="1.3"/></svg>
+              <svg class="battery" viewBox="0 0 28 14"><rect x="1" y="1" width="23" height="12" rx="3" fill="none" stroke="currentColor" opacity=".5"/><rect x="3" y="3" width="19" height="8" rx="1.5"/><path d="M25.5 4.5q3 2.5 0 5z" opacity=".5"/></svg>
+            </div>
+          </div>
+          <div id="app"></div>
+          <div class="home-indicator" aria-hidden="true"></div>
+          <div id="toast" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script src="device.js"></script>
+  <script src="portfolio-demo.js"></script>
+</body>
+</html>

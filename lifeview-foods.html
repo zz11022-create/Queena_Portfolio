@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lifeview Foods · Queena Zheng</title>
+  <link rel="icon" type="image/png" href="assets/queena-q-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a class="logo" href="index.html" aria-label="Queena Zheng home"><img src="assets/queena-wordmark.png" alt="" width="137" height="38"></a>
+  <nav aria-label="Main navigation">
+    <a href="index.html#work">Work</a>
+    <a href="about.html">About</a>
+    <a href="assets/queena-zheng-resume.pdf">Resume</a>
+    <button type="button" class="note-button" id="open-guestbook" aria-label="Open guestbook" title="Guestbook"><span class="chat-icon" aria-hidden="true"></span></button>
+  </nav>
+</header>
+<main class="reading" id="main">
+  <header class="detail-head">
+    <a class="case-back" href="index.html#work">← Work</a>
+    <p class="meta">Service Design · Speculative care</p>
+    <h1>Lifeview Foods</h1>
+    <p class="summary">A speculative dining service that uses a person’s memories as the starting point for a meal.</p>
+    <a class="project-action" href="#documentation">See the service and material studies <span aria-hidden="true">↓</span></a>
+  </header>
+  <figure class="case-image"><img src="assets/work/lifeview-foods.jpg" alt="Lifeview Foods project visual"></figure>
+  <section class="case-section"><h2>A service shaped by personal stories</h2><p>The proposed service invites people to share memories and imagines translating those stories into new food forms. The project connects storytelling, identity, and care in later life.</p></section>
+  <section class="case-section"><h2>What was made</h2><p>Storyboards explore an AI-assisted service flow. Material tests and food-form experiments give the proposal a tangible reference.</p></section>
+  <section class="case-section project-documentation" id="documentation"><h2>Project documentation</h2><figure><a href="assets/work/lifeview-foods-process-1.jpg"><img src="assets/work/lifeview-foods-process-1.jpg" alt="Speculative dining service and research framing." loading="lazy"></a><figcaption>Speculative dining service and research framing.</figcaption></figure>
+<figure><a href="assets/work/lifeview-foods-process-2.jpg"><img src="assets/work/lifeview-foods-process-2.jpg" alt="Food forms, material tests, and storyboards." loading="lazy"></a><figcaption>Food forms, material tests, and storyboards.</figcaption></figure></section>
+</main>
+<footer class="footer wrap"><p>Queena Zheng</p><a href="mailto:zz11022@nyu.edu">Get in touch ↗</a></footer>
+<dialog id="guestbook" aria-labelledby="guestbook-title">
+  <div class="dialog-head">
+    <h2 id="guestbook-title">Guestbook</h2>
+    <button id="close-guestbook" type="button" class="close" aria-label="Close guestbook">×</button>
+  </div>
+  <form class="note-form" id="note-form">
+    <label for="guest-note">Leave a note</label>
+    <textarea id="guest-note" rows="4" maxlength="300" required></textarea>
+    <button type="submit">Save note</button>
+    <p class="dialog-detail">Preview. Notes are saved on this device.</p>
+    <p id="note-status" class="status" role="status"></p>
+  </form>
+</dialog>
+</body>
+</html>

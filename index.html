@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Queena Zheng · Portfolio</title>
+  <link rel="icon" type="image/png" href="assets/queena-q-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js" defer></script>
+  <link rel="stylesheet" href="work.css">
+  <link rel="stylesheet" href="hero.css">
+  <script src="hero-phone.js" type="module"></script>
+  <script src="hero.js" defer></script>
+  <script src="work.js" defer></script>
+  <link rel="stylesheet" href="footer.css">
+  <script src="footer.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header wrap" id="top" tabindex="-1">
+  <a class="logo" href="index.html" aria-label="Queena Zheng home"><img src="assets/queena-wordmark.png" alt="" width="137" height="38"></a>
+  <nav aria-label="Main navigation">
+    <a href="index.html#work" aria-current="location">Work</a>
+    <a href="about.html">About</a>
+    <a href="assets/queena-zheng-resume.pdf">Resume</a>
+    <button type="button" class="note-button" id="open-guestbook" aria-label="Open guestbook" title="Guestbook"><span class="chat-icon" aria-hidden="true"></span></button>
+  </nav>
+</header>
+<main id="main">
+  <section class="hero-stage wrap" aria-labelledby="intro">
+    <canvas class="stage-water" aria-hidden="true"></canvas>
+    <div class="stage-title">
+      <h1 id="intro"><img src="assets/queena-wordmark.png" alt="Queena Zheng" width="546" height="152"></h1>
+      <p>AI product designer &amp; creative technologist</p>
+    </div>
+    <div class="stage-character">
+      <p class="avatar-greeting" id="avatar-greeting" role="status"></p>
+      <button class="avatar-button" type="button" aria-label="Say hello to Queena">
+        <img class="mini-q-rest" src="assets/mini-q.webp" alt="" width="778" height="806">
+        <img class="mini-q-wave" src="assets/mini-q-wave.webp" alt="" width="778" height="806">
+        <span class="mini-q-eye eye-left" aria-hidden="true"></span>
+        <span class="mini-q-eye eye-right" aria-hidden="true"></span>
+      </button>
+    </div>
+    <button class="stage-phone" type="button" aria-haspopup="dialog" aria-controls="mini-q-call">
+      <canvas class="phone-model" aria-hidden="true"></canvas>
+      <span class="phone-body" aria-hidden="true"><span class="phone-handset"></span><span class="phone-dial"></span></span>
+      <span class="phone-label">Call Mini Q</span>
+    </button>
+    <dialog id="mini-q-call" class="call-dialog" aria-labelledby="mini-q-call-title">
+      <div class="dialog-head">
+        <h2 id="mini-q-call-title">Call Mini Q</h2>
+        <form method="dialog"><button class="close" type="submit" aria-label="Close video call">×</button></form>
+      </div>
+      <p class="call-status" role="status"></p>
+      <a class="call-fallback" href="https://zz11022-create.github.io/code-your-way1/Queena_profile/" target="_blank" rel="noopener noreferrer" hidden>Open the original call page ↗</a>
+      <div class="call-slot"></div>
+    </dialog>
+    <button type="button" class="stage-toggle" aria-pressed="false">Pause effects</button>
+  </section>
+  <section class="wrap gallery" id="work" aria-labelledby="work-title">
+    <h2 id="work-title">Work</h2>
+    <div class="filters" role="group" aria-label="Filter projects">
+      <button type="button" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" data-filter="product" aria-pressed="false">Product Design</button>
+      <button type="button" data-filter="creative" aria-pressed="false">Creative Tech</button>
+      <button type="button" data-filter="installation" aria-pressed="false">Installation</button>
+      <button type="button" data-filter="visual" aria-pressed="false">Visual Design</button>
+    </div>
+    <div class="projects">
+<article class="project" data-categories="product">
+  <a href="career-mixtape.html">
+    <div class="cover cover-career cover-motion">
+      <div class="crop"><img src="assets/career-discover.jpg" alt=""></div>
+      <video class="cover-video" data-src="assets/work/career-mixtape-preview.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+    </div>
+    <div class="caption"><div><h3>Career Mixtape</h3><p>Product Design · Web</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="product creative">
+  <a href="procrastination-olympics.html">
+    <div class="cover cover-photo cover-phone cover-motion">
+      <img src="assets/work/procrastination-olympics.jpg" alt="" loading="lazy">
+      <video class="cover-video" data-src="assets/work/procrastination-olympics-preview.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+    </div>
+    <div class="caption"><div><h3>Procrastination Olympics</h3><p>Product Design · Mobile web</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="pet-court.html">
+    <div class="cover cover-photo"><img src="assets/work/pet-court.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Pet Court</h3><p>AI Interaction · Thesis prototype</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="product">
+  <a href="material-loop.html">
+    <div class="cover cover-material"><div class="material-window"><img src="assets/material-loop.jpg" alt="Material Loop marketplace desktop prototype"></div></div>
+    <div class="caption"><div><h3>Material Loop</h3><p>Product Design · Web</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="product">
+  <a href="solemates.html">
+    <div class="cover cover-photo"><img src="assets/work/solemates.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>SoleMates</h3><p>Assistive Design · Physical prototype</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="feline-oracle.html">
+    <div class="cover cover-photo cover-feline"><img src="assets/feline-oracle.png" alt="Feline Oracle cat tarot deck" loading="lazy"></div>
+    <div class="caption"><div><h3>Feline Oracle</h3><p>Creative Tech · Gesture interaction</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="product creative">
+  <a href="paws-and-progress.html">
+    <div class="cover cover-photo"><img src="assets/work/paws-and-progress.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Paws &amp; Progress</h3><p>Product Design · Web</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="installation creative">
+  <a href="boundary.html">
+    <div class="cover cover-photo"><img src="assets/boundary.jpg" alt="Particle silhouettes from Boundary"></div>
+    <div class="caption"><div><h3>Boundary</h3><p>Installation · Spatial interaction</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="installation creative">
+  <a href="sparrow-urbanism.html">
+    <div class="cover cover-photo"><img src="assets/work/sparrow-urbanism.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Sparrow Urbanism</h3><p>Installation · Urban ecology</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="signal-atlas.html">
+    <div class="cover cover-photo"><img src="assets/work/signal-atlas.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Signal Atlas</h3><p>AI Interaction · Creative coding</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="fish-of-fortune.html">
+    <div class="cover cover-photo"><img src="assets/fish-of-fortune.png" alt="Fish of Fortune sound-controlled fishing game" loading="lazy"></div>
+    <div class="caption"><div><h3>Fish of Fortune</h3><p>Creative Tech · Sound</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="product">
+  <a href="soleluxe.html">
+    <div class="cover cover-photo"><img src="assets/work/soleluxe.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Soleluxe</h3><p>Product Design · Web retail</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="product">
+  <a href="kindred-pathways.html">
+    <div class="cover cover-photo"><img src="assets/work/kindred-pathways.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Kindred Pathways</h3><p>Product Design · Service concept</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="product creative">
+  <a href="aether.html">
+    <div class="cover cover-photo"><img src="assets/work/aether.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Aether</h3><p>Product Design · Social concept</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="fluidcare.html">
+    <div class="cover cover-photo"><img src="assets/work/fluidcare.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>FluidCare</h3><p>Creative Tech · Computer vision</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="city-builder-barbie.html">
+    <div class="cover cover-photo"><img src="assets/work/city-builder-barbie.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>City Builder — Barbie</h3><p>Creative Tech · Spatial play</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="car-simulation.html">
+    <div class="cover cover-photo"><img src="assets/work/car-simulation.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Car Simulation</h3><p>Creative Tech · 3D game</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="launchpad.html">
+    <div class="cover cover-photo"><img src="assets/work/launchpad.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Launchpad</h3><p>Creative Tech · 3D web</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="player-one.html">
+    <div class="cover cover-photo"><img src="assets/work/player-one.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Player One</h3><p>Creative Tech · Interactive portrait</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="installation creative">
+  <a href="inforitance.html">
+    <div class="cover cover-photo"><img src="assets/work/inforitance.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>INFORITANCE</h3><p>Installation · Physical computing</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="installation creative">
+  <a href="emotional-gut.html">
+    <div class="cover cover-photo"><img src="assets/work/emotional-gut.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Emotional Gut</h3><p>Installation · Speculative wearable</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="product creative">
+  <a href="lifeview-foods.html">
+    <div class="cover cover-photo"><img src="assets/work/lifeview-foods.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Lifeview Foods</h3><p>Service Design · Speculative care</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="installation creative">
+  <a href="bluebeard-fluid.html">
+    <div class="cover cover-photo"><img src="assets/work/bluebeard-fluid.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Bluebeard–Fluid</h3><p>Creative Tech · Immersive narrative</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative product">
+  <a href="trace.html">
+    <div class="cover cover-photo"><img src="assets/work/trace.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Trace</h3><p>Interaction Design · Web experiment</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative visual">
+  <a href="wuhan.html">
+    <div class="cover cover-photo"><img src="assets/work/wuhan.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Wuhan: Where Rivers Meet Memory</h3><p>Visual Design · Web poster</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="http-dogs.html">
+    <div class="cover cover-photo"><img src="assets/work/http-dogs.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>HTTP Dogs</h3><p>Creative Coding · Web</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="product creative">
+  <a href="leftover-fortune-teller.html">
+    <div class="cover cover-photo"><img src="assets/work/leftover-fortune-teller.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Leftover Fortune Teller</h3><p>Product Design · Web experiment</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <div class="cover cover-photo cover-interactive" id="three-canvas-preview">
+    <img src="assets/work/three-canvas.jpg" alt="" loading="lazy">
+    <button class="preview-button" type="button" data-preview="prototypes/three-canvas/index.html"
+      aria-controls="three-canvas-preview" aria-expanded="false">Try it here</button>
+  </div>
+  <a href="three-canvas.html">
+    <div class="caption"><div><h3>Three.js Canvas Study</h3><p>Creative Coding · 3D web</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="nyc-cat-bus.html">
+    <div class="cover cover-photo"><img src="assets/work/nyc-cat-bus.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Cat on a New York Sightseeing Bus</h3><p>Creative Tech · Voxel game</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative visual">
+  <a href="scroll-study.html">
+    <div class="cover cover-photo"><img src="assets/work/scroll-study.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>The Architecture of Silence</h3><p>Creative Tech · Scroll and 3D</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="pet-trailer-studio.html">
+    <div class="cover cover-photo"><img src="assets/work/pet-trailer-studio.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Pet Trailer Studio</h3><p>Interaction Design · iOS</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="same-behavior.html">
+    <div class="cover cover-photo"><img src="assets/work/same-behavior.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Same Behavior, Different Story</h3><p>AI Design Research · Local LLMs</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="nopaws-mode.html">
+    <div class="cover cover-photo"><img src="assets/work/nopaws-mode.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>NoPaws Mode</h3><p>Creative Coding · Browser extension</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="pocket-room.html">
+    <div class="cover cover-photo"><img src="assets/work/pocket-room.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Pocket Room</h3><p>Creative Tech · Unity game</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="rainbow-pinchmas-tree.html">
+    <div class="cover cover-photo"><img src="assets/work/rainbow-pinchmas-tree.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Rainbow Pinchmas Tree</h3><p>Creative Coding · Gesture interaction</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="echo-self.html">
+    <div class="cover cover-photo"><img src="assets/work/echo-self.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Echo Self</h3><p>AI Interaction · Digital persona</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="visual creative">
+  <a href="panda-in-words.html">
+    <div class="cover cover-photo"><img src="assets/work/panda-in-words.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>Panda in Words</h3><p>Data Visualization · Creative coding</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="creative">
+  <a href="semantic-search.html">
+    <div class="cover cover-photo"><img src="assets/work/semantic-search.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>When Similarity Misses Negation</h3><p>AI Design Research · Embeddings</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+<article class="project" data-categories="product creative">
+  <a href="one-game-different-controls.html">
+    <div class="cover cover-photo"><img src="assets/work/one-game-different-controls.jpg" alt="" loading="lazy"></div>
+    <div class="caption"><div><h3>One Game, Different Controls</h3><p>Assistive Design · Interaction concept</p></div><span class="arrow" aria-hidden="true">↗</span></div>
+  </a>
+</article>
+</div>
+  </section>
+</main>
+<footer class="work-footer wrap" aria-labelledby="footer-title">
+  <div class="footer-content">
+    <div class="footer-statement">
+      <h2 id="footer-title">Make the next step clear.<br>Leave room for play.</h2>
+      <p>I use research to make the next decision easier, and prototypes to see how it feels in someone’s hands.</p>
+    </div>
+    <section class="footer-oracle" aria-labelledby="footer-oracle-title">
+      <div class="oracle-card" data-card="back" aria-hidden="true"><span>✦</span></div>
+      <div class="oracle-controls">
+        <h3 id="footer-oracle-title">Feline Oracle</h3>
+        <p class="oracle-reading" role="status">Pick a card before you go.</p>
+        <button class="oracle-draw" type="button">Draw a card <span aria-hidden="true">↗</span></button>
+      </div>
+    </section>
+  </div>
+  <div class="footer-links">
+    <nav aria-label="Find Queena elsewhere">
+      <a class="footer-icon linkedin-icon" href="https://www.linkedin.com/in/zhaoquan-zheng-179a28388" aria-label="LinkedIn" title="LinkedIn">in</a>
+      <a class="footer-icon github-icon" href="https://github.com/zz11022-create" aria-label="GitHub" title="GitHub">GH</a>
+      <a class="footer-icon" href="mailto:zz11022@nyu.edu" aria-label="Email Queena" title="Email"><span class="mail-icon" aria-hidden="true"></span></a>
+    </nav>
+    <a class="footer-icon back-to-top" href="#top" aria-label="Back to top" title="Back to top">↑</a>
+  </div>
+</footer>
+<dialog id="guestbook" aria-labelledby="guestbook-title">
+  <div class="dialog-head">
+    <h2 id="guestbook-title">Guestbook</h2>
+    <button id="close-guestbook" type="button" class="close" aria-label="Close guestbook">×</button>
+  </div>
+  <form class="note-form" id="note-form">
+    <label for="guest-note">Leave a note</label>
+    <textarea id="guest-note" rows="4" maxlength="300" required></textarea>
+    <button type="submit">Save note</button>
+    <p class="dialog-detail">Preview. Notes are saved on this device.</p>
+    <p id="note-status" class="status" role="status"></p>
+  </form>
+</dialog>
+</body>
+</html>

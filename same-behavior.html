@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Same Behavior, Different Story · Queena Zheng</title>
+  <link rel="icon" type="image/png" href="assets/queena-q-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a class="logo" href="index.html" aria-label="Queena Zheng home"><img src="assets/queena-wordmark.png" alt="" width="137" height="38"></a>
+  <nav aria-label="Main navigation">
+    <a href="index.html#work">Work</a>
+    <a href="about.html">About</a>
+    <a href="assets/queena-zheng-resume.pdf">Resume</a>
+    <button type="button" class="note-button" id="open-guestbook" aria-label="Open guestbook" title="Guestbook"><span class="chat-icon" aria-hidden="true"></span></button>
+  </nav>
+</header>
+<main class="reading" id="main">
+  <header class="detail-head">
+    <a class="case-back" href="index.html#work">← Work</a>
+    <p class="meta">AI Design Research · Local LLMs</p>
+    <h1>Same Behavior, Different Story</h1>
+    <p class="summary">A thesis experiment exploring how context and model choice change the stories language models tell about the same animal behavior.</p>
+    <a class="project-action" href="#documentation">See the comparison <span aria-hidden="true">↓</span></a>
+  </header>
+  <figure class="case-image"><img src="assets/work/same-behavior.jpg" alt="Same Behavior, Different Story project visual"></figure>
+  <section class="case-section"><h2>Hold the observation constant</h2><p>Queena used Ollama and JavaScript to compare Llama 3.2 and Qwen3 across prompts with no context, routine context, emotional context, or unrelated context. The notebook documents 32 responses across the exploratory runs.</p></section>
+  <section class="case-section"><h2>Where the evidence changes</h2><p>In one run the observation described a dog touching a drawer. The model described the dog as interacting with an unrelated envelope introduced by the prompt. The result prompted a design distinction between observed events, inferences with evidence, and invented observations.</p></section>
+  <section class="case-section"><h2>Design implication</h2><p>An interface can show the evidence behind each interpretation and keep alternative explanations visible. The small study offers examples of model behavior under these prompts.</p></section>
+  <section class="case-section project-documentation" id="documentation"><h2>Project documentation</h2><figure><a href="assets/work/same-behavior.jpg"><img src="assets/work/same-behavior.jpg" alt="Original Same Behavior, Different Story project visual." loading="lazy"></a><figcaption>Original Same Behavior, Different Story project visual.</figcaption></figure></section>
+</main>
+<footer class="footer wrap"><p>Queena Zheng</p><a href="mailto:zz11022@nyu.edu">Get in touch ↗</a></footer>
+<dialog id="guestbook" aria-labelledby="guestbook-title">
+  <div class="dialog-head">
+    <h2 id="guestbook-title">Guestbook</h2>
+    <button id="close-guestbook" type="button" class="close" aria-label="Close guestbook">×</button>
+  </div>
+  <form class="note-form" id="note-form">
+    <label for="guest-note">Leave a note</label>
+    <textarea id="guest-note" rows="4" maxlength="300" required></textarea>
+    <button type="submit">Save note</button>
+    <p class="dialog-detail">Preview. Notes are saved on this device.</p>
+    <p id="note-status" class="status" role="status"></p>
+  </form>
+</dialog>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About · Queena Zheng</title>
+  <link rel="icon" type="image/png" href="assets/queena-q-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="about.css">
+  <script src="site.js" defer></script>
+  <link rel="stylesheet" href="footer.css">
+  <script src="footer.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header wrap" id="top" tabindex="-1">
+  <a class="logo" href="index.html" aria-label="Queena Zheng home"><img src="assets/queena-wordmark.png" alt="" width="137" height="38"></a>
+  <nav aria-label="Main navigation">
+    <a href="index.html#work">Work</a>
+    <a href="about.html" aria-current="page">About</a>
+    <a href="assets/queena-zheng-resume.pdf">Resume</a>
+    <button type="button" class="note-button" id="open-guestbook" aria-label="Open guestbook" title="Guestbook"><span class="chat-icon" aria-hidden="true"></span></button>
+  </nav>
+</header>
+<main id="main" class="wrap about-page">
+  <h1>About</h1>
+  <div class="about-layout">
+    <figure class="about-portrait">
+      <img src="assets/queena-portrait.jpg" alt="Black-and-white portrait of Queena Zheng" width="960" height="1200">
+    </figure>
+    <section class="about-body" aria-labelledby="about-intro">
+      <h2 id="about-intro">Hi, I’m Queena.</h2>
+      <p>I’m Zhaoquan Zheng, an AI product designer and creative technologist based in New York. I’m currently studying at NYU ITP. My background in product design and Design Informatics at the University of Edinburgh taught me to move between what people say, what the data shows, and what I can put in someone’s hands.</p>
+      <p>On a client project for Moonsift, I used Python to analyze how people saved and organized products across more than 20,000 user records. At NYU, my team worked with The Center for Discovery to prototype a simple cue that helps staff notice and transfer custom orthotics when children change shoes. Both projects started with the same question: what would make someone’s next step easier?</p>
+      <p>That question also led to <a href="career-mixtape.html">Career Mixtape</a>, where international students can turn a career story into something to try, and <a href="pet-court.html">Pet Court</a>, a playful experiment in how AI can surface multiple interpretations of the same event. I like building these ideas far enough that someone can try them and tell me what I missed.</p>
+    </section>
+  </div>
+</main>
+<footer class="work-footer wrap" aria-labelledby="footer-title">
+  <div class="footer-content">
+    <div class="footer-statement">
+      <h2 id="footer-title">Make the next step clear.<br>Leave room for play.</h2>
+      <p>I use research to make the next decision easier, and prototypes to see how it feels in someone’s hands.</p>
+    </div>
+    <section class="footer-oracle" aria-labelledby="footer-oracle-title">
+      <div class="oracle-card" data-card="back" aria-hidden="true"><span>✦</span></div>
+      <div class="oracle-controls">
+        <h3 id="footer-oracle-title">Feline Oracle</h3>
+        <p class="oracle-reading" role="status">Pick a card before you go.</p>
+        <button class="oracle-draw" type="button">Draw a card <span aria-hidden="true">↗</span></button>
+      </div>
+    </section>
+  </div>
+  <div class="footer-links">
+    <nav aria-label="Find Queena elsewhere">
+      <a class="footer-icon linkedin-icon" href="https://www.linkedin.com/in/zhaoquan-zheng-179a28388" aria-label="LinkedIn" title="LinkedIn">in</a>
+      <a class="footer-icon github-icon" href="https://github.com/zz11022-create" aria-label="GitHub" title="GitHub">GH</a>
+      <a class="footer-icon" href="mailto:zz11022@nyu.edu" aria-label="Email Queena" title="Email"><span class="mail-icon" aria-hidden="true"></span></a>
+    </nav>
+    <a class="footer-icon back-to-top" href="#top" aria-label="Back to top" title="Back to top">↑</a>
+  </div>
+</footer>
+<dialog id="guestbook" aria-labelledby="guestbook-title">
+  <div class="dialog-head">
+    <h2 id="guestbook-title">Guestbook</h2>
+    <button id="close-guestbook" type="button" class="close" aria-label="Close guestbook">×</button>
+  </div>
+  <form class="note-form" id="note-form">
+    <label for="guest-note">Leave a note</label>
+    <textarea id="guest-note" rows="4" maxlength="300" required></textarea>
+    <button type="submit">Save note</button>
+    <p class="dialog-detail">Preview. Notes are saved on this device.</p>
+    <p id="note-status" class="status" role="status"></p>
+  </form>
+</dialog>
+</body>
+</html>

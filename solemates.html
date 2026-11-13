@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SoleMates · Queena Zheng</title>
+  <link rel="icon" type="image/png" href="assets/queena-q-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a class="logo" href="index.html" aria-label="Queena Zheng home"><img src="assets/queena-wordmark.png" alt="" width="137" height="38"></a>
+  <nav aria-label="Main navigation">
+    <a href="index.html#work">Work</a>
+    <a href="about.html">About</a>
+    <a href="assets/queena-zheng-resume.pdf">Resume</a>
+    <button type="button" class="note-button" id="open-guestbook" aria-label="Open guestbook" title="Guestbook"><span class="chat-icon" aria-hidden="true"></span></button>
+  </nav>
+</header>
+<main class="reading" id="main">
+  <header class="detail-head">
+    <a class="case-back" href="index.html#work">← Work</a>
+    <p class="meta">Assistive Design · Physical prototype</p>
+    <h1>SoleMates</h1>
+    <p class="summary">An assistive design project that helps staff notice and transfer custom orthotics when children change shoes.</p>
+    <a class="project-action" href="#documentation">See the marker concepts <span aria-hidden="true">↓</span></a>
+  </header>
+  <figure class="case-image"><img src="assets/work/solemates.jpg" alt="SoleMates project visual"></figure>
+  <section class="case-section"><h2>The invisible insert</h2><p>In collaboration with The Center for Discovery, the team mapped the shoe-change routine to find where an orthotic can blend into the shoe and be left behind.</p></section>
+  <section class="case-section"><h2>Designing the cue</h2><p>The team explored discreet markers that are easy for staff to see and move, with particular attention to fit, retention, comfort, and the number of steps a shoe change takes.</p></section>
+  <section class="case-section"><h2>Prototype and team</h2><p>Physical marker concepts and partner feedback guided the iteration. Team: Theresa Carlos, Kayla Rodriguez, and Zhaoquan Zheng.</p></section>
+  <section class="case-section project-documentation" id="documentation"><h2>Project documentation</h2><figure><a href="assets/work/solemates-process-1.jpg"><img src="assets/work/solemates-process-1.jpg" alt="Early marker sketches explore placement and visibility." loading="lazy"></a><figcaption>Early marker sketches explore placement and visibility.</figcaption></figure></section>
+</main>
+<footer class="footer wrap"><p>Queena Zheng</p><a href="mailto:zz11022@nyu.edu">Get in touch ↗</a></footer>
+<dialog id="guestbook" aria-labelledby="guestbook-title">
+  <div class="dialog-head">
+    <h2 id="guestbook-title">Guestbook</h2>
+    <button id="close-guestbook" type="button" class="close" aria-label="Close guestbook">×</button>
+  </div>
+  <form class="note-form" id="note-form">
+    <label for="guest-note">Leave a note</label>
+    <textarea id="guest-note" rows="4" maxlength="300" required></textarea>
+    <button type="submit">Save note</button>
+    <p class="dialog-detail">Preview. Notes are saved on this device.</p>
+    <p id="note-status" class="status" role="status"></p>
+  </form>
+</dialog>
+</body>
+</html>

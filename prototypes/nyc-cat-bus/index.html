@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cat on a New York Sightseeing Bus</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top, #35a8ff 0%, #1671bd 34%, #0e2345 100%);
+      font-family: Arial, Helvetica, sans-serif;
+      color: white;
+    }
+
+    .game-shell {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background:
+        linear-gradient(to bottom, rgba(255,255,255,.15), transparent 34%),
+        linear-gradient(to bottom, #45b9ff 0%, #2386d5 28%, #1d3559 65%, #111 100%);
+    }
+
+    canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      image-rendering: pixelated;
+      background: transparent;
+    }
+
+    .hud {
+      position: absolute;
+      top: 20px;
+      left: 22px;
+      right: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .panel {
+      padding: 14px 18px;
+      background: rgba(10, 18, 32, .62);
+      border: 2px solid rgba(255,255,255,.25);
+      box-shadow:
+        0 12px 36px rgba(0,0,0,.35),
+        inset 0 0 0 2px rgba(255,255,255,.06);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: #fff6c9;
+      text-shadow: 3px 3px 0 #000;
+    }
+
+    .stats {
+      margin-top: 8px;
+      display: grid;
+      gap: 4px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #f7fbff;
+    }
+
+    .controls {
+      text-align: right;
+      font-size: 13px;
+      line-height: 1.5;
+      color: rgba(255,255,255,.9);
+    }
+
+    .start-screen,
+    .game-over {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at center, rgba(0,0,0,.15), rgba(0,0,0,.72));
+      padding: 24px;
+    }
+
+    .card {
+      max-width: 620px;
+      padding: 34px;
+      border-radius: 30px;
+      background: rgba(8, 13, 24, .78);
+      border: 2px solid rgba(255,255,255,.22);
+      box-shadow: 0 30px 80px rgba(0,0,0,.55);
+      text-align: center;
+      backdrop-filter: blur(16px);
+    }
+
+    .card h1 {
+      font-size: clamp(32px, 6vw, 64px);
+      line-height: .95;
+      color: #ffdf4d;
+      text-shadow: 5px 5px 0 #d12020, 9px 9px 0 #111;
+      margin-bottom: 18px;
+      letter-spacing: -0.04em;
+    }
+
+    .card p {
+      font-size: 16px;
+      line-height: 1.65;
+      color: rgba(255,255,255,.88);
+      margin-bottom: 24px;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ffdf4d, #ff8a00);
+      color: #161000;
+      font-weight: 900;
+      font-size: 16px;
+      box-shadow: 0 12px 0 #8d3a00, 0 24px 36px rgba(0,0,0,.4);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 0 #8d3a00, 0 28px 42px rgba(0,0,0,.45);
+    }
+
+    button:active {
+      transform: translateY(7px);
+      box-shadow: 0 5px 0 #8d3a00, 0 15px 26px rgba(0,0,0,.35);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .mobile-controls {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 15;
+      display: none;
+      gap: 12px;
+    }
+
+    .mobile-controls button {
+      width: 62px;
+      height: 62px;
+      padding: 0;
+      border-radius: 20px;
+      font-size: 24px;
+    }
+
+    @media (max-width: 800px) {
+      .controls {
+        display: none;
+      }
+
+      .mobile-controls {
+        display: flex;
+      }
+
+      .panel {
+        padding: 10px 12px;
+      }
+
+      .title {
+        font-size: 14px;
+      }
+
+      .stats {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="game-shell">
+    <canvas id="game"></canvas>
+
+    <div class="hud">
+      <div class="panel">
+        <div class="title">Cat Sightseeing Rush</div>
+        <div class="stats">
+          <div>Score: <span id="score">0</span></div>
+          <div>Lives: <span id="lives">3</span></div>
+          <div>Speed: <span id="speed">1</span>x</div>
+        </div>
+      </div>
+
+      <div class="panel controls">
+        <strong>Controls</strong><br />
+        ← → Move Bus<br />
+        ↑ Boost<br />
+        Space Meow Shield
+      </div>
+    </div>
+
+    <div class="mobile-controls">
+      <button id="leftBtn">←</button>
+      <button id="shieldBtn">🐾</button>
+      <button id="rightBtn">→</button>
+    </div>
+
+    <div class="start-screen" id="startScreen">
+      <div class="card">
+        <h1>Cat on a New York Sightseeing Bus</h1>
+        <p>
+          Drive through a voxel-style Times Square. Dodge yellow taxis, hot dog carts,
+          traffic cones, and crowds. Collect apples, hearts, and Broadway stars while
+          the giant cat waves from the top of the sightseeing bus.
+        </p>
+        <button id="startBtn">Start Tour</button>
+      </div>
+    </div>
+
+    <div class="game-over hidden" id="gameOver">
+      <div class="card">
+        <h1>Tour Finished!</h1>
+        <p id="finalText">Your cat became the most famous tourist in New York.</p>
+        <button id="restartBtn">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
+
+    const scoreEl = document.getElementById("score");
+    const livesEl = document.getElementById("lives");
+    const speedEl = document.getElementById("speed");
+
+    const startScreen = document.getElementById("startScreen");
+    const gameOver = document.getElementById("gameOver");
+    const finalText = document.getElementById("finalText");
+
+    const startBtn = document.getElementById("startBtn");
+    const restartBtn = document.getElementById("restartBtn");
+
+    const leftBtn = document.getElementById("leftBtn");
+    const rightBtn = document.getElementById("rightBtn");
+    const shieldBtn = document.getElementById("shieldBtn");
+
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+    let DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+
+    function resize() {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      canvas.width = W * DPR;
+      canvas.height = H * DPR;
+      canvas.style.width = W + "px";
+      canvas.style.height = H + "px";
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    const keys = {
+      left: false,
+      right: false,
+      up: false,
+      space: false
+    };
+
+    window.addEventListener("keydown", e => {
+      if (e.key === "ArrowLeft" || e.key === "a") keys.left = true;
+      if (e.key === "ArrowRight" || e.key === "d") keys.right = true;
+      if (e.key === "ArrowUp" || e.key === "w") keys.up = true;
+      if (e.code === "Space") keys.space = true;
+    });
+
+    window.addEventListener("keyup", e => {
+      if (e.key === "ArrowLeft" || e.key === "a") keys.left = false;
+      if (e.key === "ArrowRight" || e.key === "d") keys.right = false;
+      if (e.key === "ArrowUp" || e.key === "w") keys.up = false;
+      if (e.code === "Space") keys.space = false;
+    });
+
+    function holdButton(btn, key) {
+      btn.addEventListener("pointerdown", e => {
+        e.preventDefault();
+        keys[key] = true;
+      });
+
+      btn.addEventListener("pointerup", e => {
+        e.preventDefault();
+        keys[key] = false;
+      });
+
+      btn.addEventListener("pointerleave", e => {
+        keys[key] = false;
+      });
+    }
+
+    holdButton(leftBtn, "left");
+    holdButton(rightBtn, "right");
+    holdButton(shieldBtn, "space");
+
+    let game = null;
+
+    function resetGame() {
+      game = {
+        running: true,
+        time: 0,
+        distance: 0,
+        score: 0,
+        lives: 3,
+        shake: 0,
+        speed: 1,
+        invincible: 0,
+        shieldCharge: 100,
+        objects: [],
+        buildings: [],
+        billboards: [],
+        clouds: [],
+        laneMarkers: [],
+        confetti: [],
+        bus: {
+          x: W * 0.5,
+          y: H * 0.78,
+          w: 170,
+          h: 92,
+          vx: 0
+        },
+        spawnTimer: 0,
+        collectTimer: 0
+      };
+
+      createCity();
+      createRoad();
+    }
+
+    function createCity() {
+      game.buildings = [];
+      game.billboards = [];
+      game.clouds = [];
+
+      const leftCount = 10;
+      const rightCount = 10;
+
+      for (let i = 0; i < leftCount; i++) {
+        const bw = rand(90, 170);
+        const bh = rand(H * .32, H * .78);
+        game.buildings.push({
+          side: "left",
+          x: i * rand(72, 105) - 80,
+          y: H * .64 - bh,
+          w: bw,
+          h: bh,
+          color: pick(["#7c5640", "#4f5f6f", "#594637", "#6b6e75", "#3e4f5d"]),
+          windows: pick(["#ffd978", "#b7e4ff", "#ff8b55", "#f7f2cf"]),
+          offset: rand(0, 999)
+        });
+      }
+
+      for (let i = 0; i < rightCount; i++) {
+        const bw = rand(90, 180);
+        const bh = rand(H * .32, H * .8);
+        game.buildings.push({
+          side: "right",
+          x: W - i * rand(74, 110) - bw + 80,
+          y: H * .64 - bh,
+          w: bw,
+          h: bh,
+          color: pick(["#756156", "#4a5966", "#3f4652", "#675145", "#56636e"]),
+          windows: pick(["#ffd978", "#c9eaff", "#ff7c52", "#f3e6a8"]),
+          offset: rand(0, 999)
+        });
+      }
+
+      const signs = [
+        { text: "I ♥ NY", color: "#151515", accent: "#ff4242" },
+        { text: "BIG APPLE", color: "#111", accent: "#ff332a" },
+        { text: "ON BROADWAY", color: "#6f39c5", accent: "#ffffff" },
+        { text: "TIMES SQUARE", color: "#246be8", accent: "#fff" },
+        { text: "THE LION KING", color: "#f6ba17", accent: "#111" },
+        { text: "PLAY", color: "#255be8", accent: "#fff" },
+        { text: "WELCOME NY", color: "#0e7335", accent: "#fff" },
+        { text: "BEST MUSICAL", color: "#111", accent: "#ffd335" }
+      ];
+
+      for (let i = 0; i < 16; i++) {
+        const side = i % 2 === 0 ? "left" : "right";
+        const sign = signs[i % signs.length];
+        game.billboards.push({
+          side,
+          x: side === "left" ? rand(20, W * .34) : rand(W * .66, W - 210),
+          y: rand(85, H * .5),
+          w: rand(105, 190),
+          h: rand(58, 130),
+          text: sign.text,
+          color: sign.color,
+          accent: sign.accent,
+          speed: rand(.16, .42)
+        });
+      }
+
+      for (let i = 0; i < 16; i++) {
+        game.clouds.push({
+          x: rand(-100, W + 100),
+          y: rand(30, H * .25),
+          s: rand(.6, 1.5),
+          speed: rand(.1, .35)
+        });
+      }
+    }
+
+    function createRoad() {
+      game.laneMarkers = [];
+      for (let i = 0; i < 18; i++) {
+        game.laneMarkers.push({
+          y: i * 90,
+          offset: rand(0, 50)
+        });
+      }
+    }
+
+    function start() {
+      resetGame();
+      startScreen.classList.add("hidden");
+      gameOver.classList.add("hidden");
+      requestAnimationFrame(loop);
+    }
+
+    startBtn.addEventListener("click", start);
+    restartBtn.addEventListener("click", start);
+
+    function rand(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function pick(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function rectsOverlap(a, b) {
+      return (
+        a.x < b.x + b.w &&
+        a.x + a.w > b.x &&
+        a.y < b.y + b.h &&
+        a.y + a.h > b.y
+      );
+    }
+
+    function drawVoxelRect(x, y, w, h, color, shadow = "#000", block = 6) {
+      ctx.fillStyle = color;
+      ctx.fillRect(x, y, w, h);
+
+      ctx.fillStyle = "rgba(255,255,255,.16)";
+      for (let yy = y; yy < y + h; yy += block) {
+        for (let xx = x; xx < x + w; xx += block) {
+          if ((xx + yy) % (block * 3) === 0) {
+            ctx.fillRect(xx, yy, block, block);
+          }
+        }
+      }
+
+      ctx.strokeStyle = "rgba(0,0,0,.35)";
+      ctx.lineWidth = 1;
+      for (let xx = x; xx <= x + w; xx += block) {
+        ctx.beginPath();
+        ctx.moveTo(xx, y);
+        ctx.lineTo(xx, y + h);
+        ctx.stroke();
+      }
+      for (let yy = y; yy <= y + h; yy += block) {
+        ctx.beginPath();
+        ctx.moveTo(x, yy);
+        ctx.lineTo(x + w, yy);
+        ctx.stroke();
+      }
+
+      ctx.fillStyle = shadow;
+      ctx.globalAlpha = .22;
+      ctx.fillRect(x + w - block, y + block, block, h - block);
+      ctx.fillRect(x + block, y + h - block, w - block, block);
+      ctx.globalAlpha = 1;
+    }
+
+    function drawTextBlock(text, x, y, maxW, size, color = "#fff", align = "center") {
+      ctx.save();
+      ctx.font = `900 ${size}px Arial`;
+      ctx.textAlign = align;
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "rgba(0,0,0,.9)";
+      ctx.fillText(text, x + 3, y + 3, maxW);
+      ctx.fillStyle = color;
+      ctx.fillText(text, x, y, maxW);
+      ctx.restore();
+    }
+
+    function drawBackground(dt) {
+      const t = game.time;
+
+      ctx.clearRect(0, 0, W, H);
+
+      const sky = ctx.createLinearGradient(0, 0, 0, H);
+      sky.addColorStop(0, "#3cb5ff");
+      sky.addColorStop(.35, "#1e8eda");
+      sky.addColorStop(.62, "#314864");
+      sky.addColorStop(1, "#11131a");
+      ctx.fillStyle = sky;
+      ctx.fillRect(0, 0, W, H);
+
+      drawClouds(dt);
+
+      drawEmpireState(W * .52, H * .08, 120, H * .46);
+      drawChrysler(W * .44, H * .1, 110, H * .42);
+
+      drawBuildings(dt);
+      drawBillboards(dt);
+      drawStreetFurniture();
+
+      drawRoad(dt);
+      drawSidewalkCrowd(dt);
+    }
+
+    function drawClouds(dt) {
+      game.clouds.forEach(c => {
+        c.x += c.speed * dt * .05;
+        if (c.x > W + 130) c.x = -160;
+
+        const s = c.s;
+        drawVoxelRect(c.x, c.y, 34 * s, 16 * s, "#ffffff", "#dbefff", 8 * s);
+        drawVoxelRect(c.x + 22 * s, c.y - 13 * s, 36 * s, 24 * s, "#ffffff", "#dbefff", 8 * s);
+        drawVoxelRect(c.x + 52 * s, c.y, 42 * s, 18 * s, "#ffffff", "#dbefff", 8 * s);
+      });
+    }
+
+    function drawEmpireState(x, y, w, h) {
+      drawVoxelRect(x - w / 2, y + h * .26, w, h * .74, "#c5b8a5", "#665c55", 8);
+      drawVoxelRect(x - w * .38, y + h * .13, w * .76, h * .14, "#d8cebb", "#665c55", 8);
+      drawVoxelRect(x - w * .26, y + h * .02, w * .52, h * .12, "#e8dfce", "#665c55", 8);
+      drawVoxelRect(x - 5, y - h * .08, 10, h * .1, "#fff3d5", "#665c55", 5);
+
+      for (let yy = y + h * .32; yy < y + h; yy += 18) {
+        for (let xx = x - w / 2 + 12; xx < x + w / 2 - 8; xx += 18) {
+          ctx.fillStyle = "#f8e2a0";
+          ctx.fillRect(xx, yy, 7, 10);
+        }
+      }
+    }
+
+    function drawChrysler(x, y, w, h) {
+      drawVoxelRect(x - w / 2, y + h * .3, w, h * .7, "#b7c0c9", "#59636c", 8);
+      drawVoxelRect(x - w * .36, y + h * .18, w * .72, h * .12, "#dce7ee", "#59636c", 8);
+      drawVoxelRect(x - w * .25, y + h * .07, w * .5, h * .12, "#f0f8ff", "#59636c", 8);
+      drawVoxelRect(x - 4, y - h * .02, 8, h * .1, "#f6fbff", "#59636c", 5);
+    }
+
+    function drawBuildings(dt) {
+      game.buildings.forEach(b => {
+        const drift = Math.sin(game.time * .0001 + b.offset) * 4;
+        drawVoxelRect(b.x + drift, b.y, b.w, b.h, b.color, "#000", 8);
+
+        for (let yy = b.y + 18; yy < b.y + b.h - 12; yy += 28) {
+          for (let xx = b.x + 14; xx < b.x + b.w - 14; xx += 22) {
+            ctx.fillStyle = Math.random() > .995 ? "#fff9b6" : b.windows;
+            ctx.globalAlpha = .72;
+            ctx.fillRect(xx + drift, yy, 10, 15);
+            ctx.globalAlpha = 1;
+          }
+        }
+      });
+    }
+
+    function drawBillboards(dt) {
+      game.billboards.forEach((s, i) => {
+        s.y += s.speed * game.speed * dt * .01;
+        if (s.y > H * .67) {
+          s.y = rand(70, 160);
+          s.x = s.side === "left" ? rand(20, W * .34) : rand(W * .66, W - 210);
+        }
+
+        drawVoxelRect(s.x, s.y, s.w, s.h, s.color, "#000", 7);
+
+        ctx.strokeStyle = "#242424";
+        ctx.lineWidth = 6;
+        ctx.strokeRect(s.x, s.y, s.w, s.h);
+
+        const lines = s.text.split(" ");
+        lines.forEach((line, idx) => {
+          drawTextBlock(
+            line,
+            s.x + s.w / 2,
+            s.y + s.h / 2 - (lines.length - 1) * 13 + idx * 26,
+            s.w - 12,
+            Math.min(25, s.w / 7),
+            s.accent
+          );
+        });
+
+        if (s.text.includes("I")) {
+          drawHeart(s.x + s.w / 2, s.y + s.h - 24, 15, "#ff3333");
+        }
+
+        if (s.text.includes("APPLE")) {
+          drawApple(s.x + s.w / 2, s.y + s.h - 28, 17);
+        }
+
+        if (s.text.includes("PLAY")) {
+          drawSmile(s.x + s.w / 2, s.y + 28, 18);
+        }
+      });
+    }
+
+    function drawStreetFurniture() {
+      drawVoxelRect(18, H * .39, 26, H * .3, "#046833", "#002b15", 6);
+      drawVoxelRect(4, H * .42, 58, 12, "#046833", "#002b15", 6);
+      drawVoxelRect(22, H * .36, 18, 36, "#046833", "#002b15", 6);
+
+      drawVoxelRect(44, H * .44, 72, 30, "#155b38", "#001d12", 5);
+      drawTextBlock("W 42 ST", 80, H * .455, 70, 15, "#fff");
+
+      drawVoxelRect(64, H * .49, 88, 28, "#f2f2e8", "#000", 5);
+      drawTextBlock("ONE WAY", 108, H * .505, 80, 14, "#111");
+
+      drawVoxelRect(W - 120, H * .43, 74, 30, "#155b38", "#001d12", 5);
+      drawTextBlock("W 42 ST", W - 83, H * .445, 70, 15, "#fff");
+
+      drawHotDogCart(80, H * .72);
+    }
+
+    function drawHotDogCart(x, y) {
+      drawVoxelRect(x, y, 112, 48, "#d83221", "#580b05", 6);
+      drawVoxelRect(x + 10, y - 40, 92, 32, "#ffdf49", "#8a5800", 7);
+      drawVoxelRect(x + 10, y - 56, 30, 16, "#e13328", "#8a0000", 7);
+      drawVoxelRect(x + 40, y - 56, 30, 16, "#ffffff", "#888", 7);
+      drawVoxelRect(x + 70, y - 56, 30, 16, "#2477ff", "#001e7c", 7);
+      drawTextBlock("HOT DOGS", x + 56, y + 22, 100, 15, "#ffea6a");
+      drawWheel(x + 20, y + 50, 12);
+      drawWheel(x + 92, y + 50, 12);
+    }
+
+    function drawRoad(dt) {
+      const roadTop = H * .56;
+      const roadBottom = H;
+      const center = W / 2;
+
+      ctx.fillStyle = "#202227";
+      ctx.beginPath();
+      ctx.moveTo(W * .36, roadTop);
+      ctx.lineTo(W * .64, roadTop);
+      ctx.lineTo(W * .92, roadBottom);
+      ctx.lineTo(W * .08, roadBottom);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = "#30343a";
+      for (let i = 0; i < 80; i++) {
+        const y = roadTop + i * 18 + (game.distance * .08 % 18);
+        const perspective = (y - roadTop) / (roadBottom - roadTop);
+        const x1 = W * .36 - perspective * W * .28;
+        const x2 = W * .64 + perspective * W * .28;
+        const blockW = 16 + perspective * 12;
+        for (let x = x1; x < x2; x += blockW) {
+          if ((Math.floor(x / blockW) + i) % 2 === 0) {
+            ctx.fillRect(x, y, blockW - 2, 10);
+          }
+        }
+      }
+
+      game.laneMarkers.forEach(m => {
+        m.y += (6 + game.speed * 7) * dt * .02;
+        if (m.y > H + 80) m.y = roadTop - 80;
+
+        const p = Math.max(0, (m.y - roadTop) / (roadBottom - roadTop));
+        const laneWidth = 16 + p * 22;
+        const markerH = 46 + p * 44;
+        const leftX = center - 95 * p - laneWidth / 2;
+        const rightX = center + 95 * p - laneWidth / 2;
+
+        drawVoxelRect(leftX, m.y, laneWidth, markerH, "#f7f5e9", "#aaa", 5);
+        drawVoxelRect(rightX, m.y, laneWidth, markerH, "#f7f5e9", "#aaa", 5);
+      });
+
+      drawCrosswalk();
+    }
+
+    function drawCrosswalk() {
+      const y = H * .83;
+      for (let i = -5; i <= 5; i++) {
+        const x = W / 2 + i * 58;
+        drawVoxelRect(x - 20, y + Math.abs(i) * 5, 40, 18 + Math.abs(i) * 5, "#f7f4e8", "#aaa", 4);
+      }
+    }
+
+    function drawSidewalkCrowd(dt) {
+      for (let i = 0; i < 28; i++) {
+        const side = i % 2 === 0 ? -1 : 1;
+        const baseX = side < 0 ? randSeed(i, 10, W * .22) : randSeed(i + 33, W * .78, W - 30);
+        const baseY = randSeed(i + 91, H * .64, H * .94);
+        const bob = Math.sin(game.time * .004 + i) * 2;
+
+        drawPerson(baseX, baseY + bob, .75 + (baseY / H) * .45, pickSeed(i, ["#6f45ff", "#ff8a2b", "#3cc77a", "#3d8cff", "#ffd23f", "#f05c7a"]));
+      }
+    }
+
+    function randSeed(seed, min, max) {
+      const x = Math.sin(seed * 999.91) * 10000;
+      return min + (x - Math.floor(x)) * (max - min);
+    }
+
+    function pickSeed(seed, arr) {
+      return arr[Math.floor(randSeed(seed, 0, arr.length - .001))];
+    }
+
+    function drawPerson(x, y, s, shirt) {
+      drawVoxelRect(x - 6 * s, y - 36 * s, 12 * s, 12 * s, "#c98a54", "#66310f", 3 * s);
+      drawVoxelRect(x - 8 * s, y - 24 * s, 16 * s, 22 * s, shirt, "#111", 3 * s);
+      drawVoxelRect(x - 10 * s, y - 2 * s, 7 * s, 20 * s, "#24334a", "#111", 3 * s);
+      drawVoxelRect(x + 3 * s, y - 2 * s, 7 * s, 20 * s, "#24334a", "#111", 3 * s);
+      drawVoxelRect(x - 12 * s, y - 18 * s, 5 * s, 18 * s, "#c98a54", "#66310f", 3 * s);
+      drawVoxelRect(x + 7 * s, y - 18 * s, 5 * s, 18 * s, "#c98a54", "#66310f", 3 * s);
+    }
+
+    function update(dt) {
+      if (!game.running) return;
+
+      game.time += dt;
+      game.distance += dt * game.speed;
+      game.speed = 1 + Math.min(3.2, game.score / 1200);
+
+      if (keys.up) game.speed += .6;
+
+      const bus = game.bus;
+      const targetVX = (keys.right ? 1 : 0) - (keys.left ? 1 : 0);
+      bus.vx += targetVX * 1.1;
+      bus.vx *= .86;
+      bus.x += bus.vx * dt * .065;
+
+      const roadLeft = W * .17;
+      const roadRight = W * .83;
+      bus.x = Math.max(roadLeft + bus.w / 2, Math.min(roadRight - bus.w / 2, bus.x));
+
+      if (keys.space && game.shieldCharge > 2) {
+        game.invincible = Math.max(game.invincible, 100);
+        game.shieldCharge -= dt * .05;
+      } else {
+        game.shieldCharge = Math.min(100, game.shieldCharge + dt * .012);
+      }
+
+      if (game.invincible > 0) game.invincible -= dt;
+
+      game.spawnTimer -= dt;
+      game.collectTimer -= dt;
+
+      if (game.spawnTimer <= 0) {
+        spawnObstacle();
+        game.spawnTimer = rand(600, 1050) / game.speed;
+      }
+
+      if (game.collectTimer <= 0) {
+        spawnCollectible();
+        game.collectTimer = rand(700, 1200) / game.speed;
+      }
+
+      game.objects.forEach(o => {
+        o.y += o.speed * game.speed * dt * .06;
+        o.scale += dt * .00042 * game.speed;
+        o.rotation += o.spin * dt * .01;
+      });
+
+      game.objects = game.objects.filter(o => o.y < H + 160 && !o.dead);
+
+      const busHitbox = {
+        x: bus.x - bus.w / 2 + 18,
+        y: bus.y - bus.h / 2 + 14,
+        w: bus.w - 36,
+        h: bus.h - 20
+      };
+
+      game.objects.forEach(o => {
+        const size = o.size * o.scale;
+        const box = {
+          x: o.x - size / 2,
+          y: o.y - size / 2,
+          w: size,
+          h: size
+        };
+
+        if (rectsOverlap(busHitbox, box)) {
+          if (o.type === "collect") {
+            o.dead = true;
+            game.score += o.value;
+            burst(o.x, o.y, o.color);
+          } else {
+            if (game.invincible <= 0) {
+              o.dead = true;
+              game.lives -= 1;
+              game.invincible = 1200;
+              screenShake(18);
+              burst(bus.x, bus.y - 40, "#ff3737");
+              if (game.lives <= 0) endGame();
+            } else {
+              o.dead = true;
+              game.score += 30;
+              burst(o.x, o.y, "#7dfcff");
+            }
+          }
+        }
+      });
+
+      game.confetti.forEach(p => {
+        p.x += p.vx * dt * .06;
+        p.y += p.vy * dt * .06;
+        p.vy += .12 * dt * .06;
+        p.life -= dt;
+      });
+      game.confetti = game.confetti.filter(p => p.life > 0);
+
+      game.score += Math.floor(dt * .01 * game.speed);
+      scoreEl.textContent = game.score;
+      livesEl.textContent = game.lives;
+      speedEl.textContent = game.speed.toFixed(1);
+    }
+
+    function spawnObstacle() {
+      const roadLeft = W * .27;
+      const roadRight = W * .73;
+      const laneX = pick([
+        W * .34,
+        W * .44,
+        W * .56,
+        W * .66,
+        rand(roadLeft, roadRight)
+      ]);
+
+      game.objects.push({
+        kind: pick(["taxi", "cone", "hotdog", "tourist"]),
+        type: "obstacle",
+        x: laneX,
+        y: H * .54,
+        size: rand(46, 68),
+        scale: .42,
+        speed: rand(4.2, 6.6),
+        rotation: 0,
+        spin: rand(-.2, .2),
+        color: "#ffcf2b"
+      });
+    }
+
+    function spawnCollectible() {
+      game.objects.push({
+        kind: pick(["apple", "heart", "star"]),
+        type: "collect",
+        x: rand(W * .28, W * .72),
+        y: H * .53,
+        size: rand(34, 46),
+        scale: .45,
+        speed: rand(3.8, 5.2),
+        rotation: 0,
+        spin: rand(-.9, .9),
+        value: pick([50, 75, 100]),
+        color: pick(["#ff3131", "#ffd83d", "#56ff95"])
+      });
+    }
+
+    function burst(x, y, color) {
+      for (let i = 0; i < 18; i++) {
+        game.confetti.push({
+          x,
+          y,
+          vx: rand(-4, 4),
+          vy: rand(-6, 2),
+          size: rand(4, 10),
+          color,
+          life: rand(400, 900)
+        });
+      }
+    }
+
+    function screenShake(amount) {
+      game.shake = amount;
+    }
+
+    function endGame() {
+      game.running = false;
+      finalText.textContent = `Final Score: ${game.score}. The cat waved at Times Square, but the bus tour got too chaotic.`;
+      gameOver.classList.remove("hidden");
+    }
+
+    function drawObjects() {
+      game.objects
+        .slice()
+        .sort((a, b) => a.y - b.y)
+        .forEach(o => {
+          const s = o.scale;
+          ctx.save();
+          ctx.translate(o.x, o.y);
+          ctx.rotate(o.rotation * .05);
+          if (o.kind === "taxi") drawTaxi(0, 0, s);
+          if (o.kind === "cone") drawCone(0, 0, s);
+          if (o.kind === "hotdog") drawMiniHotdog(0, 0, s);
+          if (o.kind === "tourist") drawTouristObstacle(0, 0, s);
+          if (o.kind === "apple") drawApple(0, 0, 23 * s);
+          if (o.kind === "heart") drawHeart(0, 0, 23 * s, "#ff384a");
+          if (o.kind === "star") drawStar(0, 0, 25 * s, "#ffe24d");
+          ctx.restore();
+        });
+    }
+
+    function drawTaxi(x, y, s) {
+      drawVoxelRect(x - 48 * s, y - 22 * s, 96 * s, 44 * s, "#ffc928", "#7b5200", 5 * s);
+      drawVoxelRect(x - 28 * s, y - 42 * s, 56 * s, 24 * s, "#ffda47", "#7b5200", 5 * s);
+      drawVoxelRect(x - 18 * s, y - 54 * s, 36 * s, 12 * s, "#f7f7f2", "#888", 4 * s);
+      drawTextBlock("TAXI", x, y - 48 * s, 40 * s, 10 * s, "#111");
+      drawVoxelRect(x - 35 * s, y - 35 * s, 20 * s, 13 * s, "#87d6ff", "#134a72", 4 * s);
+      drawVoxelRect(x + 15 * s, y - 35 * s, 20 * s, 13 * s, "#87d6ff", "#134a72", 4 * s);
+      drawWheel(x - 30 * s, y + 23 * s, 10 * s);
+      drawWheel(x + 30 * s, y + 23 * s, 10 * s);
+    }
+
+    function drawCone(x, y, s) {
+      drawVoxelRect(x - 16 * s, y + 16 * s, 32 * s, 10 * s, "#fff", "#777", 4 * s);
+      drawVoxelRect(x - 12 * s, y - 6 * s, 24 * s, 22 * s, "#ff6a00", "#7a2200", 4 * s);
+      drawVoxelRect(x - 8 * s, y - 24 * s, 16 * s, 18 * s, "#ff8a00", "#7a2200", 4 * s);
+      drawVoxelRect(x - 5 * s, y - 36 * s, 10 * s, 12 * s, "#ffaa00", "#7a2200", 3 * s);
+    }
+
+    function drawMiniHotdog(x, y, s) {
+      drawVoxelRect(x - 34 * s, y - 18 * s, 68 * s, 36 * s, "#d62620", "#5d0500", 5 * s);
+      drawVoxelRect(x - 28 * s, y - 44 * s, 56 * s, 22 * s, "#ffde4d", "#9a5c00", 5 * s);
+      drawTextBlock("DOG", x, y, 60 * s, 12 * s, "#fff6a8");
+      drawWheel(x - 20 * s, y + 20 * s, 8 * s);
+      drawWheel(x + 20 * s, y + 20 * s, 8 * s);
+    }
+
+    function drawTouristObstacle(x, y, s) {
+      drawPerson(x, y + 24 * s, s * 1.3, "#3f7cff");
+      drawVoxelRect(x - 18 * s, y - 58 * s, 36 * s, 12 * s, "#ffdf55", "#5c4400", 4 * s);
+      drawVoxelRect(x - 26 * s, y - 46 * s, 52 * s, 16 * s, "#56c9ff", "#00506f", 4 * s);
+    }
+
+    function drawBus() {
+      const bus = game.bus;
+      const x = bus.x;
+      const y = bus.y;
+      const w = bus.w;
+      const h = bus.h;
+      const inv = game.invincible > 0;
+
+      if (inv) {
+        ctx.save();
+        ctx.globalAlpha = .38 + Math.sin(game.time * .025) * .16;
+        ctx.strokeStyle = "#9effff";
+        ctx.lineWidth = 7;
+        ctx.beginPath();
+        ctx.ellipse(x, y - 42, w * .72, h * .95, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      drawVoxelRect(x - w / 2, y - h / 2, w, h, "#d9271c", "#5a0806", 6);
+      drawVoxelRect(x - w / 2 + 8, y - h / 2 - 40, w - 16, 44, "#e33322", "#5a0806", 6);
+
+      drawVoxelRect(x - w / 2 + 16, y - h / 2 + 12, 54, 32, "#111b25", "#000", 5);
+      drawVoxelRect(x - w / 2 + 76, y - h / 2 + 12, 36, 32, "#101a24", "#000", 5);
+      drawVoxelRect(x - w / 2 + 118, y - h / 2 + 12, 36, 32, "#101a24", "#000", 5);
+
+      drawVoxelRect(x - w / 2 + 18, y - h / 2 - 31, w - 36, 22, "#141414", "#000", 4);
+      drawTextBlock("DOWNTOWN TOUR", x, y - h / 2 - 20, w - 46, 13, "#ffdf38");
+
+      drawTextBlock("NEW YORK", x + 32, y + 4, 90, 18, "#fff1cf");
+      drawTextBlock("SIGHTSEEING", x + 32, y + 25, 100, 12, "#ffdf38");
+
+      drawVoxelRect(x - w / 2 + 112, y + 18, 34, 46, "#69d3a2", "#06442b", 5);
+      drawTextBlock("NYC", x - w / 2 + 28, y + 38, 45, 12, "#fff");
+
+      drawWheel(x - 52, y + h / 2, 17);
+      drawWheel(x + 58, y + h / 2, 17);
+
+      drawPassengers(x, y - h / 2 - 50);
+      drawGiantCat(x - 22, y - h / 2 - 95);
+    }
+
+    function drawPassengers(x, y) {
+      const colors = ["#7c4dff", "#ffca2b", "#49d17f", "#ff7a59", "#69b7ff"];
+      for (let i = 0; i < 5; i++) {
+        drawPerson(x + i * 24 + 12, y + 26 + Math.sin(game.time * .006 + i) * 2, .68, colors[i]);
+      }
+    }
+
+    function drawGiantCat(x, y) {
+      const bob = Math.sin(game.time * .006) * 4;
+
+      ctx.save();
+      ctx.translate(x, y + bob);
+
+      drawVoxelRect(-54, -8, 108, 74, "#d9975a", "#5e3218", 5);
+      drawVoxelRect(-70, 12, 26, 42, "#ffffff", "#aaa", 5);
+      drawVoxelRect(44, 12, 26, 42, "#ffffff", "#aaa", 5);
+
+      drawVoxelRect(-45, -65, 90, 72, "#e5a86f", "#5e3218", 5);
+
+      drawVoxelRect(-46, -86, 27, 30, "#e5a86f", "#5e3218", 5);
+      drawVoxelRect(19, -86, 27, 30, "#e5a86f", "#5e3218", 5);
+      drawVoxelRect(-38, -77, 14, 15, "#ffb6c8", "#83364a", 4);
+      drawVoxelRect(24, -77, 14, 15, "#ffb6c8", "#83364a", 4);
+
+      drawVoxelRect(-28, -43, 18, 18, "#73e34d", "#16440e", 4);
+      drawVoxelRect(10, -43, 18, 18, "#73e34d", "#16440e", 4);
+      drawVoxelRect(-22, -37, 8, 10, "#111", "#111", 3);
+      drawVoxelRect(16, -37, 8, 10, "#111", "#111", 3);
+
+      drawVoxelRect(-7, -24, 14, 10, "#ff9ab0", "#772b3b", 3);
+      drawVoxelRect(-16, -10, 32, 10, "#111", "#111", 3);
+      drawVoxelRect(-10, -4, 20, 10, "#ff5e5e", "#7a0000", 3);
+
+      ctx.strokeStyle = "#fff";
+      ctx.lineWidth = 3;
+      for (let i = 0; i < 3; i++) {
+        ctx.beginPath();
+        ctx.moveTo(-18, -20 + i * 5);
+        ctx.lineTo(-68, -34 + i * 9);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(18, -20 + i * 5);
+        ctx.lineTo(68, -34 + i * 9);
+        ctx.stroke();
+      }
+
+      drawVoxelRect(49, -4, 17, 78, "#9c6236", "#4a2410", 5);
+      drawVoxelRect(44, -22, 24, 24, "#ffffff", "#aaa", 5);
+
+      ctx.restore();
+    }
+
+    function drawWheel(x, y, r) {
+      ctx.fillStyle = "#111";
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = "#4d5662";
+      ctx.beginPath();
+      ctx.arc(x, y, r * .58, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = "#b8c0ca";
+      ctx.fillRect(x - r * .18, y - r * .18, r * .36, r * .36);
+    }
+
+    function drawApple(x, y, s) {
+      ctx.save();
+      ctx.translate(x, y);
+      drawVoxelRect(-s * .75, -s * .3, s * .65, s * .85, "#f3342f", "#8a0808", s * .18);
+      drawVoxelRect(s * .1, -s * .3, s * .65, s * .85, "#e82020", "#8a0808", s * .18);
+      drawVoxelRect(-s * .45, -s * .65, s * .9, s * .52, "#ff4a42", "#8a0808", s * .18);
+      drawVoxelRect(-s * .08, -s * .98, s * .16, s * .38, "#5c3215", "#281000", s * .1);
+      drawVoxelRect(s * .08, -s * .98, s * .48, s * .22, "#4caf36", "#154b12", s * .1);
+      ctx.restore();
+    }
+
+    function drawHeart(x, y, s, color) {
+      ctx.save();
+      ctx.translate(x, y);
+      drawVoxelRect(-s, -s * .45, s * .8, s * .8, color, "#7a0202", s * .18);
+      drawVoxelRect(s * .2, -s * .45, s * .8, s * .8, color, "#7a0202", s * .18);
+      drawVoxelRect(-s * .6, s * .2, s * 1.2, s * .72, color, "#7a0202", s * .18);
+      drawVoxelRect(-s * .35, s * .75, s * .7, s * .55, color, "#7a0202", s * .18);
+      ctx.restore();
+    }
+
+    function drawSmile(x, y, s) {
+      ctx.save();
+      ctx.translate(x, y);
+      drawVoxelRect(-s, -s, s * 2, s * 2, "#ffd73d", "#8a6200", s * .18);
+      drawVoxelRect(-s * .52, -s * .3, s * .25, s * .25, "#111", "#111", s * .1);
+      drawVoxelRect(s * .28, -s * .3, s * .25, s * .25, "#111", "#111", s * .1);
+      drawVoxelRect(-s * .46, s * .35, s * .92, s * .22, "#111", "#111", s * .1);
+      ctx.restore();
+    }
+
+    function drawStar(x, y, s, color) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.fillStyle = color;
+      ctx.strokeStyle = "#8a6200";
+      ctx.lineWidth = Math.max(2, s * .08);
+      ctx.beginPath();
+      for (let i = 0; i < 10; i++) {
+        const a = -Math.PI / 2 + i * Math.PI / 5;
+        const r = i % 2 === 0 ? s : s * .43;
+        ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = "rgba(255,255,255,.3)";
+      ctx.fillRect(-s * .2, -s * .55, s * .26, s * .26);
+      ctx.restore();
+    }
+
+    function drawConfetti() {
+      game.confetti.forEach(p => {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.life * .02);
+        ctx.globalAlpha = Math.max(0, Math.min(1, p.life / 600));
+        drawVoxelRect(-p.size / 2, -p.size / 2, p.size, p.size, p.color, "#000", Math.max(2, p.size / 2));
+        ctx.restore();
+      });
+    }
+
+    let last = 0;
+
+    function loop(now) {
+      if (!game) return;
+
+      const dt = Math.min(40, now - last || 16);
+      last = now;
+
+      update(dt);
+
+      ctx.save();
+
+      if (game.shake > 0) {
+        const sx = rand(-game.shake, game.shake);
+        const sy = rand(-game.shake, game.shake);
+        ctx.translate(sx, sy);
+        game.shake *= .82;
+        if (game.shake < .5) game.shake = 0;
+      }
+
+      drawBackground(dt);
+      drawObjects();
+      drawBus();
+      drawConfetti();
+      drawShieldMeter();
+
+      ctx.restore();
+
+      if (game.running) requestAnimationFrame(loop);
+    }
+
+    function drawShieldMeter() {
+      const x = 22;
+      const y = H - 34;
+      const w = 180;
+      const h = 12;
+
+      ctx.fillStyle = "rgba(0,0,0,.45)";
+      ctx.fillRect(x, y, w, h);
+
+      ctx.fillStyle = "#7dfcff";
+      ctx.fillRect(x, y, w * (game.shieldCharge / 100), h);
+
+      ctx.strokeStyle = "rgba(255,255,255,.35)";
+      ctx.strokeRect(x, y, w, h);
+
+      drawTextBlock("MEOW SHIELD", x + w / 2, y - 13, w, 12, "#fff");
+    }
+
+    resetGame();
+    drawBackground(16);
+    drawBus();
+  </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Procrastination Olympics · Queena Zheng</title>
+  <link rel="icon" type="image/png" href="assets/queena-q-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a class="logo" href="index.html" aria-label="Queena Zheng home"><img src="assets/queena-wordmark.png" alt="" width="137" height="38"></a>
+  <nav aria-label="Main navigation">
+    <a href="index.html#work">Work</a>
+    <a href="about.html">About</a>
+    <a href="assets/queena-zheng-resume.pdf">Resume</a>
+    <button type="button" class="note-button" id="open-guestbook" aria-label="Open guestbook" title="Guestbook"><span class="chat-icon" aria-hidden="true"></span></button>
+  </nav>
+</header>
+<main class="reading" id="main">
+  <header class="detail-head">
+    <a class="case-back" href="index.html#work">← Work</a>
+    <p class="meta">Product Design · Mobile web</p>
+    <h1>Procrastination Olympics</h1>
+    <p class="summary">A playful mobile experience that helps hesitant makers start with one small creative act and build on it later.</p>
+    <a class="project-action" href="prototypes/procrastination-olympics/index.html">Try the mobile prototype <span aria-hidden="true">↗</span></a>
+  </header>
+  <figure class="case-image"><img src="assets/work/procrastination-olympics.jpg" alt="Procrastination Olympics project visual"></figure>
+  <section class="case-section"><h2>The first move</h2><p>Coach Sloth gives players a concrete task: assemble a monster by choosing its features, colors, and accessories. A timed round gives it momentum, and an untimed option lets players set their own pace.</p></section>
+  <section class="case-section"><h2>One creation, several paths</h2><p>The same monster can become a gallery exhibit, a character with a backstory, or the start of a writing exercise. The Passport preserves creations and unfinished drafts for a return visit.</p></section>
+  <section class="case-section"><h2>What the prototype tests</h2><p>Can someone find a first activity, make something, and choose a next step on their own? The browser prototype saves work locally. Participant testing for this question is still planned.</p></section>
+  <section class="case-section project-documentation" id="documentation"><h2>Project documentation</h2><figure><a href="assets/work/procrastination-olympics-process-1.jpg"><img src="assets/work/procrastination-olympics-process-1.jpg" alt="The gallery turns the player’s monster into an exhibit." loading="lazy"></a><figcaption>The gallery turns the player’s monster into an exhibit.</figcaption></figure>
+<figure><a href="assets/work/procrastination-olympics-process-2.jpg"><img src="assets/work/procrastination-olympics-process-2.jpg" alt="The Passport collects artifacts and drafts." loading="lazy"></a><figcaption>The Passport collects artifacts and drafts.</figcaption></figure></section>
+</main>
+<footer class="footer wrap"><p>Queena Zheng</p><a href="mailto:zz11022@nyu.edu">Get in touch ↗</a></footer>
+<dialog id="guestbook" aria-labelledby="guestbook-title">
+  <div class="dialog-head">
+    <h2 id="guestbook-title">Guestbook</h2>
+    <button id="close-guestbook" type="button" class="close" aria-label="Close guestbook">×</button>
+  </div>
+  <form class="note-form" id="note-form">
+    <label for="guest-note">Leave a note</label>
+    <textarea id="guest-note" rows="4" maxlength="300" required></textarea>
+    <button type="submit">Save note</button>
+    <p class="dialog-detail">Preview. Notes are saved on this device.</p>
+    <p id="note-status" class="status" role="status"></p>
+  </form>
+</dialog>
+</body>
+</html>

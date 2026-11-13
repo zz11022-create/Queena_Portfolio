@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boundary · Queena Zheng</title>
+  <link rel="icon" type="image/png" href="assets/queena-q-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a class="logo" href="index.html" aria-label="Queena Zheng home"><img src="assets/queena-wordmark.png" alt="" width="137" height="38"></a>
+  <nav aria-label="Main navigation">
+    <a href="index.html#work">Work</a>
+    <a href="about.html">About</a>
+    <a href="assets/queena-zheng-resume.pdf">Resume</a>
+    <button type="button" class="note-button" id="open-guestbook" aria-label="Open guestbook" title="Guestbook"><span class="chat-icon" aria-hidden="true"></span></button>
+  </nav>
+</header>
+<main class="reading" id="main">
+  <header class="detail-head">
+    <a class="case-back" href="index.html#work">← Work</a>
+    <p class="meta">Installation · Spatial interaction</p>
+    <h1>Boundary</h1>
+    <p class="summary">An installation that turns physical distance into visible feedback.</p>
+    <a href="#documentation">View the installation documentation ↓</a>
+  </header>
+  <figure class="case-image"><img src="assets/boundary.jpg" alt="Particle silhouettes from the Boundary installation"></figure>
+  <section class="case-section"><h2>A boundary you can see</h2><p>Kinect and TouchDesigner translate changes in proximity into a particle portrait. The portrait distorts as the visitor moves closer.</p></section>
+  <section class="case-section"><h2>Discover the rule through movement</h2><p>At a comfortable distance the visitor can recognize their silhouette. Moving closer distorts the portrait, giving them immediate feedback as they explore their personal space.</p></section>
+  <section class="case-section project-documentation" id="documentation"><h2>Installation documentation</h2>
+    <figure><a href="assets/work/boundary-overview.jpg"><img src="assets/work/boundary-overview.jpg" alt="Original Boundary research and development spread" loading="lazy"></a></figure>
+    <figure><a href="assets/work/boundary-detail.jpg"><img src="assets/work/boundary-detail.jpg" alt="Particle behavior and installation display documentation" loading="lazy"></a></figure>
+  </section>
+</main>
+<footer class="footer wrap"><p>Queena Zheng</p><a href="mailto:zz11022@nyu.edu">Get in touch ↗</a></footer>
+<dialog id="guestbook" aria-labelledby="guestbook-title">
+  <div class="dialog-head">
+    <h2 id="guestbook-title">Guestbook</h2>
+    <button id="close-guestbook" type="button" class="close" aria-label="Close guestbook">×</button>
+  </div>
+  <form class="note-form" id="note-form">
+    <label for="guest-note">Leave a note</label>
+    <textarea id="guest-note" rows="4" maxlength="300" required></textarea>
+    <button type="submit">Save note</button>
+    <p class="dialog-detail">Preview. Notes are saved on this device.</p>
+    <p id="note-status" class="status" role="status"></p>
+  </form>
+</dialog>
+</body>
+</html>
